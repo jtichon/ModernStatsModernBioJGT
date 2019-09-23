@@ -1,0 +1,19 @@
+---
+title: "Class-2"
+author: "Jenna G. Tichon"
+date: "23/09/2019"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Generative Models for Discrete Data
+
+### 1.2
+
+
+### 1.3 
+
+**Exchangeable**: The order in which the data observed doesn't matter
