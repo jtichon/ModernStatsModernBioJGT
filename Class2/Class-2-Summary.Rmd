@@ -17,14 +17,79 @@ library(here)
 
 ## Generative Models for Discrete Data
 
-### 1.2
+### 1.1 Goals for this chapter
 
+### 1.2 A Real Example
 
-### 1.3 
+```{r}
+dpois(x=0:12, lambda=5)
+barplot(dpois(0:12,5), names.arg = 0:12, col = "red")
+```
+
+### 1.3 Using discrete probability models
 
 \biotip{\textbf{Exchangeable}: The order in which the data observed doesn't matter.}
 
-#### 1.3.4
+```{r}
+genotype = c("AA", "AO", "BB", "AO", "OO", "AO", "AA", "BO", "BO", 
+             "AO", "BB", "AO", "BO", "AB", "OO", "AB", "BB", "AO", "AO")
+table(genotype)
+
+#Access factor levels
+genotypeF = factor(genotype)
+levels(genotypeF)
+table(genotypeF)
+```
+
+#### 1.3.1 Bernoulli Trials
+
+```{r}
+rbinom(15, prob= 0.5, size = 1)
+rbinom(12, prob = 2/3, size = 1)
+rbinom(1, prob = 2/3, size = 12)
+
+set.seed(235569515)
+rbinom(1, prob = 0.3, size = 15)
+```
+
+
+#### 1.3.2 Binomial success counts
+
+#### Q 1.3
+
+```{r}
+for(j in 1:10)
+{
+  print(rbinom(1, prob = 0.3, size = 15))
+}
+
+probabilities = dbinom(0:15, prob = 0.3, size = 15)
+round(probabilities, 2)
+
+barplot(probabilities, names.arg = 0:15, col ="red")
+```
+
+#### Q 1.4
+
+```{r}
+dbinom(3, size = 4, prob = 2/3)
+choose(4,3)*(2/3)^3*(1-2/3)^(4-3)
+```
+
+#### 1.3.3 Poisson distributions
+
+#### Q5
+
+```{r}
+dpois(3,5)
+5^3*exp(-5)/factorial(3)
+
+simulations = rbinom(n = 30000, prob = 5e-4, size = 10000)
+barplot(table(simulations), col = "lavender")
+```
+
+#### 1.3.4 A generative model for epitope detection
+
 \biotip{An \textbf{antibody} is a protein made by certain white blood cells in response to a foreign substance in the body, which is called the \textbf{antigen}. An antibody binds to its antigen to destroy the antigen. So destroy antigens directly and others recruit white blood cells to destroy the antigen. An \textbf{epitope}, also known as antigenic determinant, is the part of an antigen that is recognized by the immune system, specifically by anitobodies, B celss or T cells.}
 
 False positive rate: detect an epitope when none is present. Assume 1%. So if no epitopes presents, probability is 1 in 100 of getting a 1.
@@ -74,3 +139,316 @@ mean( maxes >= 7 )
 
 
 \rtip{The \texttt{mean} function works this way because we created a logical vector of TRUE/FALSEs.}
+
+### 1.4 Multinomial distributions: the case of DNA
+
+One sample with four categories from a multinomial distribution with probabilies $1/8$, $3/8$, $3/8$, $1/8$.
+```{r}
+rmultinom(1, size = 4, prob=c((1/8),(3/8),(3/8),(1/8)))
+```
+
+#### q1.7
+The answer to the actual Q1.7 for finding the probability
+```{r}
+pvec = rep(1/4, 4)
+dmultinom(c(4,2,0,0), size=6, prob = pvec)
+```
+
+Step one for building this through simulation: generate one sample
+
+```{r}
+t(rmultinom(1, prob = pvec, size = 8))
+```
+
+#### q1.8 
+t() stands for transpose. Removing it and the vector displays vertically.
+```{r}
+rmultinom(1, prob = pvec, size = 8)
+```
+
+#### q1.9 
+This generates 8 samples of size 1.
+
+```{r}
+rmultinom(n = 8, prob = pvec, size = 1)
+```
+
+This generates one sample of size 8.
+```{r}
+rmultinom(n = 1, prob = pvec, size = 8)
+```
+
+#### 1.4.1 Simulating for power
+
+**Power (True Positive Rate)**: Probability of detecting something that is there. (Aim for 80\%+ power). $P(\text{reject }H_0|H_A)$
+
+If we find the extreme 5\% tail for the distribution under $H_0$ (uniform distribution) using simulation, we can estimate the rejection region. It's upper 5\% because this is a chi-squared distribution we are estimating for a test statistic.
+
+```{r}
+#Randomly generated under null hypothesis, 1000 observations where all 4 categories are equally likely. This is our theoretical observed count.
+obsunder0 = rmultinom(1000, prob = pvec, size = 20)
+dim(obsunder0)
+#Print first 11 observations to show. Remember, displayed vertically.
+obsunder0[, 1:11]
+```
+
+Now we find the expected counts under uniform to calculate our test statistic.
+
+```{r}
+#Expected counts if all equally likely
+expected0 = pvec * 20
+```
+
+Now we will create a function to calculate the deviations under the chi-squared test statistic: 
+
+\[\sum_i\dfrac{(E_i-x_i)^2}{E_i}\]
+
+```{r}
+#Function to create test stat - chi-squared
+stat = function(obsvd, exptd = 20 * pvec) {
+  sum((obsvd - exptd)^2 / exptd)
+}
+```
+
+We can use this function to what the test statistic would have been for the first sample:
+
+```{r}
+#Give sum contribution of first observation
+stat(obsunder0[, 1])
+```
+
+Using this, we will find what the test statistic would have been for each of our 1000 samples. This will allow us to decide what is considered an extreme deviation under $H_0$ empirically.
+
+```{r}
+#Apply the test stat to each column element of obsunder0
+#apply's second option is 1 or 2 for row or column
+S0 = apply(obsunder0, 2, stat)
+summary(S0)
+```
+
+\rtip{The apply(x,1 or 2, f) function says apply function f to each row (1) or each column (2) of x.}
+
+Now we use the quantile function to find the 95th percentile of these deviations under $H_0$
+
+```{r}
+#Quantiles for distribution of deviations (contributions to test stat)
+q95 = quantile(S0, probs = 0.95)
+q95
+```
+
+This means that we would reject $H_0$ if our test stat is greater than 7.6 (i.e. if the weighted mean of all deviations is larger than what would be an extreme deviation under $H_0$).
+
+
+To determine the power of a test with a 3/8, 1/4, 3/12, 1/8 distribution, we find the probability that we would reject $H_0$ when we have an observed dataset that truly comes from this different distribution when we take 1000 samples of size 20.
+
+```{r}
+pvecA = c(3/8, 1/4, 3/12, 1/8)
+observed = rmultinom(1000, prob = pvecA, size = 20)
+dim(observed)
+```
+
+We can find the average across each row to show that it is more or less in line with what we expect.
+```{r}
+#display first seven, calculate the average counts across each row.
+observed[, 1:7]
+apply(observed, 1, mean)
+
+#calculate expected counts under new distribution
+expectedA = pvecA * 20
+expectedA
+```
+
+Test calculate the deviation of the first sample, then find the test statistic for each sample.
+
+```{r}
+stat(observed[, 1])
+S1 = apply(observed, 2, stat)
+```
+
+Knowing that the rejection region is all observed chi-squares greater than 7.6, count how samples would have led to a rejection of our test.
+
+```{r}
+q95
+sum(S1 > q95)
+```
+The power is the percentage of observations that fall in the rejection region.
+
+```{r}
+power = mean(S1 > q95)
+power
+```
+
+\rtip{Remember, when set up as S1>q95, we are taking the mean of a logical vector so it is averaging 0's and 1's which is the same as taking a percentage.}
+
+### 1.5 Summary of this chapter
+
+### 1.6 Further Reading
+
+### 1.7 Exercises
+
+#### Exercise 1.1
+
+Geometric \texttt{rgeom(n, p)}
+
+Hypergeometric \texttt{rhyper(N,A,B,k)}
+
+#### Exercise 1.2
+
+dbinom(0,10,.3)+dbinom(1,10,.3)+dbinom(2,10,.3)
+
+pbinom(2,10,.3)
+
+#### Exercise 1.3
+
+Here is my first overly complicated attempt at the problem but it does give us a function for calculating the probability the max is exactly equal to a number!
+
+```{r}
+#Function to find probability the max of n poisson samples with mean lambda is
+#equal to m
+max.pois<-function(m,n,lambda)
+{
+  #Probability max is less than m (i.e. all n values less than m)
+  prob.lessm<- ppois(m-1,lambda)^n
+  
+  #Probability max is less than m+1 (i.e. all n values less than m+1)
+  prob.lessm1<- ppois(m,lambda)^n
+  
+  #Probability max is equal to m (P(max<m+1)-P(max<m))
+  probm<-prob.lessm1-prob.lessm
+}
+
+asbigmax.pois<-function(m,n,lambda){
+  #Find probability of all maxes less than m
+  max.prob<-c(0:m-1)
+  for(j in 0:m-1)
+  {
+    max.prob[j]<-max.pois(j,n,lambda)
+  }
+  
+  #Find probability of max at least as large as m (i.e. 1 - prob less than m)
+  prob<-1-sum(max.prob)
+  prob
+}
+```
+
+Test case for $m=9$, $n=20$, $\lambda=4$
+
+```{r}
+asbigmax.pois(9,20,4)
+```
+
+And then I realized that was way too complicated and found a better function that matched what we had done earlier:
+
+```{r}
+maxormore<-function(m,n,lambda)
+{
+  1-ppois(m-1,lambda)^n
+}
+```
+
+Confirm the test cases agree:
+
+```{r}
+maxormore(9,20,4)
+```
+
+#### Exercise 1.4
+
+Same deal with complicated version then simpler version. I used $m=10$, $n=20$, $\lambda=5$ for my default values.
+
+```{r}
+#Function to find probability the max of n poisson samples with mean lambda is
+#equal to m
+max.pois<-function(m,n,lambda)
+{
+  #Probability max is less than m (i.e. all n values less than m)
+  prob.lessm<- ppois(m-1,lambda)^n
+  
+  #Probability max is less than m+1 (i.e. all n values less than m+1)
+  prob.lessm1<- ppois(m,lambda)^n
+  
+  #Probability max is equal to m (P(max<m+1)-P(max<m))
+  probm<-prob.lessm1-prob.lessm
+}
+
+asbigmaxd.pois<-function(m=10,n=20,lambda=5){
+  #Find probability of all maxes less than m
+  max.prob<-c(0:m-1)
+  for(j in 0:m-1)
+  {
+    max.prob[j]<-max.pois(j,n,lambda)
+  }
+  
+  #Find probability of max at least as large as m (i.e. 1 - prob less than m)
+  prob<-1-sum(max.prob)
+  prob
+}
+```
+
+Test the function:
+
+```{r}
+asbigmaxd.pois()
+```
+
+
+Way simpler version with same defaults:
+
+```{r}
+maxormored<-function(m=10,n=20,lambda=5)
+{
+  1-ppois(m-1,lambda)^n
+}
+```
+
+Show the test agrees:
+
+```{r}
+maxormored()
+```
+
+#### Exercise 1.5
+
+\alert{Not sure what this question means. 100 trials mean 100 samples or 100 positions to test? What do they mean by "number of simulations to prove"? Leaving this for group discussion.}
+
+#### Exercise 1.6
+
+```{r}
+?Distributions
+```
+
+Some not discrete distributions: chi-squared, exponential, F, gamma, normal.
+
+**CDF of Geometric($p=0.6$)**
+
+```{r}
+dgeom(x=0:12, p=.6)
+
+barplot(dgeom(0:12,p=0.6), names.arg = 0:12, col = "red")
+```
+
+**CDF of Standard Normal**
+
+```{r}
+dnorm(x=seq(-3,3, by=0.1)) 
+
+barplot(dnorm(x=seq(-3,3, by=0.5)), names.arg = seq(-3,3, by=0.5), col = "red")
+```
+
+#### Exercise 1.7
+
+```{r}
+x.pois<-rpois(100,3)
+mean(x.pois)
+var(x.pois)
+```
+
+#### Exercise 1.8
+
+\alert{No idea. Let's see what the biologists know about this package.}
+
+<!--
+if (!requireNamespace("BiocManager", quietly = TRUE))
+    install.packages("BiocManager")
+BiocManager::install(c("Biostrings", "BSgenome.Celegans.UCSC.ce2"))
+-->
