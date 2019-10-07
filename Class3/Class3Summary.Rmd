@@ -71,6 +71,7 @@ dpois(c(0,1,2,7),lambda = 3)^(c(58, 34, 7, 1))
 #the Prod function gives us the product
 prod(dpois(c(0,1,2,7),lambda = 3)^(c(58, 34, 7, 1)))
 ```
+<<<<<<< HEAD
 
 Which is decidedly super unlikely. 
 
@@ -249,3 +250,5 @@ abline(v = quantile(simulstat, probs = c(0.95, 0.99)),
 ```
 
 It happens 0 times! This is good reason to reject that it's multinomial with equal proportions across all genes.
+=======
+>>>>>>> 054bff047acba9186fece3916c2a0396b8aeea7b

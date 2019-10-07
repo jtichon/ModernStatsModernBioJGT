@@ -19,6 +19,7 @@ pois.100<-rpois(100,0.5)
 png((here("Class3", "randompoissonrootogram.png")))
 gf2 = goodfit(pois.100, "poisson")
 rootogram(gf2, xlab="", rect_gp = gpar(fill = "chartreuse"))
+<<<<<<< HEAD
 dev.off()
 
 table(e100)
@@ -92,3 +93,6 @@ here("data", "e100.RData")
 staph = readDNAStringSet(here("data","staphsequence.ffn.txt"), "fasta")
 staph[1]
 letterFrequency(staph[[1]], letters = "ACGT", OR = 0)
+=======
+dev.off()
+>>>>>>> 054bff047acba9186fece3916c2a0396b8aeea7b
