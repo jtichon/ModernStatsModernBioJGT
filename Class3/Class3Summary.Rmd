@@ -1,0 +1,73 @@
+---
+title: "Class 3 Summary"
+author: "Jenna G. Tichon"
+date: "07/10/2019"
+output:
+  pdf_document:
+    includes:
+      in_header: header.tex
+  html_document:
+    df_print: paged
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(here)
+library(vcd)
+```
+
+## 2.3 A simple Example of Statistical Modeling
+
+This is a process for taking real data and trying to decide which distribution we should set it to.
+```{r}
+load(here("data", "e100.RData"))
+
+#remove outlier to make dataset easier to work with
+e99 = e100[-which.max(e100)]
+
+#see picture of distribution to try to decide distribution
+barplot(table(e99), space = 0.8, col = "chartreuse")
+
+#Using vcd library, create theoretical fit of data set to poisson
+gf1 = goodfit( e99, "poisson")
+
+#The rootogram shifts the barplot to match theoretical values to show how far off you are
+rootogram(gf1, xlab = "", rect_gp = gpar(fill = "chartreuse"))
+```
+
+\rtip{\texttt{goodfit} takes in "poisson", "binomial", "nbinomial"}
+
+### Q2.1
+
+Generate 100 random poissons with $\lambda=0.5$ to test out rootogram
+
+```{r}
+pois.100<-rpois(100,0.5)
+gf2 = goodfit(pois.100, "poisson")
+rootogram(gf2, xlab="", rect_gp = gpar(fill = "chartreuse"))
+```
+
+For the **MLE** we are looking for the most likely parameter based on the observed data.
+
+```{r}
+table(e100)
+table(rpois(100,3))
+```
+
+Comparing our dataset to a Poisson 3 obviously shows that 3 would be a bad parameter estimate
+
+### Q2.2
+
+Given that we have 58 0's, 34 1's, and 7 2's, what's the probability of that happening given they are Poisson $m$?
+
+\[P(0)^{58}\times P(1)^{34}\times P(2)^7 \times P(7)^1\]
+
+for $m=3$ this is:
+
+```{r}
+#Side Note This gives individual probabilities
+dpois(c(0,1,2,7),lambda = 3)^(c(58, 34, 7, 1))
+
+#the Prod function gives us the product
+prod(dpois(c(0,1,2,7),lambda = 3)^(c(58, 34, 7, 1)))
+```
