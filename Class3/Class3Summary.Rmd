@@ -1,0 +1,251 @@
+---
+title: "Class 3 Summary"
+author: "Jenna G. Tichon"
+date: "07/10/2019"
+output:
+  pdf_document:
+    includes:
+      in_header: header.tex
+  html_document:
+    df_print: paged
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(here)
+library(vcd)
+```
+
+## 2.3 A simple Example of Statistical Modeling
+
+This is a process for taking real data and trying to decide which distribution we should set it to.
+```{r}
+load(here("data", "e100.RData"))
+
+#remove outlier to make dataset easier to work with
+e99 = e100[-which.max(e100)]
+
+#see picture of distribution to try to decide distribution
+barplot(table(e99), space = 0.8, col = "chartreuse")
+
+#Using vcd library, create theoretical fit of data set to poisson
+gf1 = goodfit( e99, "poisson")
+
+#The rootogram shifts the barplot to match theoretical values to show how far off you are
+rootogram(gf1, xlab = "", rect_gp = gpar(fill = "chartreuse"))
+```
+
+\rtip{\texttt{goodfit} takes in "poisson", "binomial", "nbinomial"}
+
+### Q2.1
+
+Generate 100 random poissons with $\lambda=0.5$ to test out rootogram
+
+```{r}
+pois.100<-rpois(100,0.5)
+gf2 = goodfit(pois.100, "poisson")
+rootogram(gf2, xlab="", rect_gp = gpar(fill = "chartreuse"))
+```
+
+For the **MLE** we are looking for the most likely parameter based on the observed data.
+
+```{r}
+table(e100)
+table(rpois(100,3))
+```
+
+Comparing our dataset to a Poisson 3 obviously shows that 3 would be a bad parameter estimate
+
+### Q2.2
+
+Given that we have 58 0's, 34 1's, and 7 2's, what's the probability of that happening given they are Poisson $m$?
+
+\[P(0)^{58}\times P(1)^{34}\times P(2)^7 \times P(7)^1\]
+
+for $m=3$ this is:
+
+```{r}
+#Side Note This gives individual probabilities
+dpois(c(0,1,2,7),lambda = 3)^(c(58, 34, 7, 1))
+
+#the Prod function gives us the product
+prod(dpois(c(0,1,2,7),lambda = 3)^(c(58, 34, 7, 1)))
+```
+
+Which is decidedly super unlikely. 
+
+### Q2.3
+
+My Function to try different $m$ values and ascertain the likelihood of the data given that they are poisson $m$.
+
+```{r}
+#Function for trying different m's
+pois100prob<-function(m){
+prod(dpois(c(0,1,2,7),lambda = m)^(c(58, 34, 7, 1)))
+}
+
+pois100prob(0)
+pois100prob(1)
+pois100prob(2)
+pois100prob(0.4)
+```
+
+Text's function to find out the log likelihood of various $m$ values to find the max:
+```{r}
+loglikelihood = function(lambda, data = e100){
+sum(log(dpois(data,lambda)))
+}
+```
+
+Note the sum of the logs of the likelihood is maximized when the product of the likelihoods is.
+
+Use this function to evaluate for a series of lambdas:
+
+```{r}
+lambdas = seq(0.05, 0.95, length = 100)
+loglik = vapply(lambdas, loglikelihood, numeric(1))
+plot(lambdas, loglik, type = "l", col = "red", ylab = "", lwd = 2, xlab = expression(lambda))
+m0 = mean(e100)
+abline(v = m0, col = "blue", lwd = 2)
+abline(h = loglikelihood(m0), col = "purple", lwd = 2)
+m0
+```
+
+\rtip{ vapply applies the loglikelihood function to all of the elements of lambdas. numeric(1) tells it that it's returning a single numeric value}
+
+Good fit has a shortcut for this:
+
+```{r}
+gf = goodfit(e100, "poisson")
+names(gf)
+gf$par
+```
+
+The outputs are:
+
+  - *observed* : observed frequencies
+  - *count* : corresponding counts
+  - *fitted* : expected frequencies (maximum likelihood)
+  - *type* : distribution being fitted
+  - *method*: fitting method: "ML", "MinChisq", "fixed"
+  - *df* : degrees of freedom
+  - *par* : named list of parameter
+  
+Redoing the rootogram using 0.55:
+
+```{r}
+pois.100<-rpois(100,0.55)
+gf2 = goodfit(pois.100, "poisson")
+rootogram(gf2, xlab="", rect_gp = gpar(fill = "chartreuse"))
+```
+
+### Q2.6 
+
+Known distributions allow us to not ``reinvent the wheel'' and reuse methods without rederiving results for each individual data set.
+
+## Binomial Distributions and maximum likelihood
+
+Looking at loglikelihood of binomial. Here's an example dataset:
+
+```{r}
+cb<-c(rep(0,110), rep(1,10))
+table(cb)
+```
+
+We'd expect the maximum likelihood value to be 10/110=`r 10/110`
+
+We can test this out using R
+```{r}
+probs = seq(0, 0.3, by = 0.005)
+likelihood = dbinom(sum(cb), prob = probs, size = length(cb))
+plot(probs, likelihood, pch = 16, xlab = "probability of success", ylab = "likelihood", cex=0.6)
+probs[which.max(likelihood)]
+```
+
+We can find the loglikelihood function for binomial as:
+
+```{r}
+loglikelihood.binom = function(theta, n = 300, k = 40){
+  115 + k * log(theta) + (n - k) * log(1 - theta)
+}
+
+thetas = seq(0, 1, by = 0.001)
+plot(thetas, loglikelihood.binom(thetas), xlab = expression(theta), 
+     ylab = expression(paste("log f(", theta, " | y")), type = "l")
+```
+
+\rtip{\red{WHAT DOES EXPRESSION DO?}}
+
+**NB**: The diagram is flat near the max. This implies that a Bayesian might suggest that the value of $\theta$ is something random in a range of those likely values.
+
+## 2.5 More boxes: multinomial data
+
+\biotip{Four types of moecules in DNA: A - adenine, C - cytosine, G - guanine, T - thymine. A and G are purines and C and T are pyrimidines}
+
+Looking at one DNA sequence
+```{r}
+library("Biostrings")
+here("data", "e100.RData")
+staph = readDNAStringSet(here("data","staphsequence.ffn.txt"), "fasta")
+staph[1]
+letterFrequency(staph[[1]], letters = "ACGT", OR = 0)
+```
+\rtip{The doublebrackets around the 1 pulls out the entire 1st sequence. Single brakets just gives the whole mess of data because staph is only one element long.}
+
+### Q 2.9 
+
+\alert{Reread this}
+*Following a similar procedure as in Exercise 1.8, test whether the nucleotides are equally distributed across the four nucleotides for the first gene.
+
+Here are the observed proportions where set an estimate of equal across all genes by averaging the observed proportions across all A, C, G, T (i.e. as if the mucelotides are in consistent proportion across all genes):
+
+```{r}
+#Find letter frequency
+letterFrq = vapply(staph, letterFrequency, FUN.VALUE = numeric(4),
+         letters = "ACGT", OR = 0)
+colnames(letterFrq) = paste0("gene", seq(along = staph))
+#Compute frequencies in first 10 genes and convert to proportions
+tab10 = letterFrq[, 1:10]
+computeProportions = function(x) { x/sum(x) }
+prop10 = apply(tab10, 2, computeProportions)
+round(prop10, digits = 2)
+p0 = rowMeans(prop10)
+p0
+```
+
+We find the expected probabilities by multiply the mean proportions for each nucleotide with the total count for each gene. i.e. This is the way the observed counts would divide for each gene if the proportion was equal across all genes
+
+```{r}
+cs = colSums(tab10)
+cs
+expectedtab10 = outer(p0, cs, FUN = "*")
+round(expectedtab10)
+```
+
+Make a random table with observed column counts if generated from a multinomial with our null proportion spread (i.e. equal across all genes)
+
+```{r}
+randomtab10 = sapply(cs, function(s) { rmultinom(1, s, p0) } )
+all(colSums(randomtab10) == cs)
+```
+
+Repeat this 1000 times to see how often we get a chi-squared value more extreme than we observed.
+
+```{r}
+stat = function(obsvd, exptd = 20 * pvec) {
+   sum((obsvd - exptd)^2 / exptd)
+}
+B = 1000
+simulstat = replicate(B, {
+  randomtab10 = sapply(cs, function(s) { rmultinom(1, s, p0) })
+  stat(randomtab10, expectedtab10)
+})
+S1 = stat(tab10, expectedtab10)
+sum(simulstat >= S1)
+hist(simulstat, col = "lavender", breaks = seq(0, 75, length.out=50))
+abline(v = S1, col = "red")
+abline(v = quantile(simulstat, probs = c(0.95, 0.99)),
+       col = c("darkgreen", "blue"), lty = 2)
+```
+
+It happens 0 times! This is good reason to reject that it's multinomial with equal proportions across all genes.
