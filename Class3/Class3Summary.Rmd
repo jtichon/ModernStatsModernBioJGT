@@ -250,5 +250,316 @@ abline(v = quantile(simulstat, probs = c(0.95, 0.99)),
 ```
 
 It happens 0 times! This is good reason to reject that it's multinomial with equal proportions across all genes.
-=======
->>>>>>> 054bff047acba9186fece3916c2a0396b8aeea7b
+
+## 2.6 The $\chi^2$ distribution
+
+### 2.6.1 Intermezzo: quantiles and the quantile-quantile plot
+
+
+### Q 2.10
+Compare quantiles of actual chi-squared test statistics vs our randomly generated chi-squared values with 30 ($=10\times(4-1)$) df.
+```{r}
+qs = ppoints(100)
+par(mfrow=c(1,2))
+hist(quantile(simulstat, qs), main = "Test stats under H0 Multinomial")
+hist(quantile(qchisq(qs, df = 30), qs), main = "Randomly generated chi-squared")
+dev.off()
+```
+
+QQ-Plot comparing the two distributions:
+
+```{r}
+qqplot(quantile(simulstat, qs),quantile(qchisq(qs, df = 30), qs))
+```
+
+This justifies that the test statistic for whether it follows the distribution is $\chi^2_{(30)}$.
+
+### Q 2.11
+
+Median / Second quartile
+
+### Q 2.12
+
+Weighted average of order statistics is how R computes quantiles
+
+Text's qq-plot:
+
+```{r}
+qqplot(qchisq(ppoints(B), df = 30), simulstat, main = "",
+       xlab = expression(chi[nu==30]^2), asp = 1, cex = 0.5, pch = 16)
+abline(a = 0, b = 1, col = "red")
+```
+
+## 2.7 Chargaff's Rule
+
+```{r}
+load(here("data", "ChargaffTable.RData"))
+ChargaffTable
+
+par(mfrow=c(2,4))
+barplot(ChargaffTable[1,])
+barplot(ChargaffTable[2,])
+barplot(ChargaffTable[3,])
+barplot(ChargaffTable[4,])
+barplot(ChargaffTable[5,])
+barplot(ChargaffTable[6,])
+barplot(ChargaffTable[7,])
+barplot(ChargaffTable[8,])
+dev.off()
+```
+
+They don't appear to come from the same distribution. 1,3,5,6,7 look the same-ish, 2 looks different and 8 might be it's own or grouped with 2.
+
+\biotip{Chargaff's rule says A and T amounts will be similar while C and G amounts will be similar within one organism but not necessarily between organisms.}
+
+We might make a test statistic
+\[(p_C-p_G)^2 + (p_A+pT)^2\]
+because this would zero under a null hypothesis that A/T are the same and C/G are the same.
+
+We can test this as a permutation test:
+
+```{r}
+#Calculate proposed test stat
+statChf = function(x){
+  sum((x[, "C"] - x[, "G"])^2 + (x[, "A"] - x[, "T"])^2)
+}
+chfstat = statChf(ChargaffTable)
+
+#Calculate test stats under a permutation test of relabeling all rows as if there was no pattern
+permstat = replicate(100000, {
+  permuted = t(apply(ChargaffTable, 1, sample))
+  colnames(permuted) = colnames(ChargaffTable)
+  statChf(permuted)
+})
+
+#p-value
+pChf = mean(permstat <= chfstat)
+pChf
+
+hist(permstat, breaks = 100, main = "", col = "lavender")
+abline(v = chfstat, lwd = 2, col = "red")
+```
+
+We only consider lower values because we would never consider a high test statistic as indicative that A/T and C/G were similar.
+
+### 2.7.1 Two categorical Variables
+
+```{r}
+HairEyeColor[,,"Female"]
+dim(HairEyeColor)
+str(HairEyeColor)
+```
+
+This is a built in dataset with dimensions $4\times4\times4$
+
+```{r}
+load(here("Data", "Deuteranopia.RData"))
+Deuteranopia
+#Chi-square Test for Independence between and occurrence of color blindness
+chisq.test(Deuteranopia)
+```
+
+### 2.7.2 A special multinomial: Hardy-Weinberg equilibrium
+
+\biotip{Suppose two Allelles M and N. M has overall frequency $p$ and N has $q=1-p$. If mating happens at random with independence between frequency of allelle genotype then we get the \textbf{Hardy-Weingberg equilibrium (HWE)}}
+
+\[p_{MM}=p^2, \hspace{1cm} p_{NN}=q^2, \hspace{1cm} p_{MN} = 2pq\]
+
+If they occur with frequencies $n_{ij}$, 
+
+\[p(n_{MM},n_{MN},n_{NN}|p)=\binom{S}{n_{MM},n_{MN},n_{NN}}(p^2)^{n_{MM}}\times(2pq)^{n_{MN}}\times(q^2)^{n_{NN}}\]
+
+\[L(p)=n_{MM}log(p^2)+n_{MN}log(2pq)+n_{NN}log(q^2)\]
+
+which is maximized at
+
+\[p=\dfrac{n_{MM}+n_{MN}/2}{S}\]
+
+Loglikelihood for a dataset of allelles from Tahiti
+```{r}
+library("HardyWeinberg")
+data("Mourant")
+Mourant[214:216,]
+
+nMM = Mourant$MM[216]
+nMN = Mourant$MN[216]
+nNN = Mourant$NN[216]
+loglik = function(p, q = 1 - p) {
+  2 * nMM * log(p) + nMN * log(2*p*q) + 2 * nNN * log(q)
+}
+xv = seq(0.01, 0.99, by = 0.01)
+yv = loglik(xv)
+png(here("Class3","loglikelihoodtahiti.png"))
+plot(x = xv, y = yv, type = "l", lwd = 2,
+     xlab = "p", ylab = "log-likelihood")
+imax = which.max(yv)
+abline(v = xv[imax], h = yv[imax], lwd = 1.5, col = "blue")
+abline(h = yv[imax], lwd = 1.5, col = "purple")
+```
+
+Expected values of proportions under Herdy-Weinberg equilibrium
+
+```{r}
+#af is a function from HardyWeinberg package to calculate predicted proportions
+phat  =  af(c(nMM, nMN, nNN))
+phat
+pMM   =  phat^2
+qhat  =  1 - phat
+pHW = c(MM = phat^2, MN = 2*phat*qhat, NN = qhat^2)
+sum(c(nMM, nMN, nNN)) * pHW
+```
+This graph shows confidence intervals for the Hardy-Weinberg Equilibrium
+```{r}
+pops = c(1, 69, 128, 148, 192)
+genotypeFrequencies = as.matrix(Mourant[, c("MM", "MN", "NN")])
+HWTernaryPlot(genotypeFrequencies[pops, ],
+        markerlab = Mourant$Country[pops],
+        alpha = 0.0001, curvecols = c("red", rep("purple", 4)),
+        mcex = 0.75, vertex.cex = 1)
+```
+
+### 2.7.3 
+
+Can't download seqLogo package
+<!--
+# ```{r}
+# library("seqLogo")
+# load(here("Class3","kozak.RData"))
+# kozak
+# ```
+--->
+
+### 2.9.1
+
+```{r}
+haplo6=read.table(here("Data","haplotype6.txt"), header = TRUE)
+haplo6
+```
+```{r}
+#histogram of y's that are binomial but the probabilities are generated using beta's
+rtheta = rbeta(100000, 50, 350)
+y = vapply(rtheta, function(th) {
+  rbinom(1, prob = th, size = 300)
+}, numeric(1))
+hist(y, breaks = 50, col = "orange", main = "", xlab = "")
+```
+\alert{Why 90 610?}
+```{r}
+#all theta's that had y==40 with the theoretical density overtop 
+thetaPostEmp = rtheta[ y == 40 ]
+hist(thetaPostEmp, breaks = 40, col = "chartreuse4", main = "",
+  probability = TRUE, xlab = expression("posterior"~theta))
+densPostTheory  =  dbeta(thetas, 90, 610)
+lines(thetas, densPostTheory, type="l", lwd = 3)
+```
+Show that this agrees.
+```{r}
+mean(thetaPostEmp)
+dtheta = thetas[2]-thetas[1]
+sum(thetas * densPostTheory * dtheta)
+```
+
+```{r}
+thetaPostMC = rbeta(n = 1e6, 90, 610)
+mean(thetaPostMC)
+qqplot(thetaPostMC, thetaPostEmp, type = "l", asp = 1)
+abline(a = 0, b = 1, col = "blue")
+```
+
+```{r}
+densPost2 = dbeta(thetas, 115, 735)
+mcPost2   = rbeta(1e6, 115, 735)
+
+sum(thetas * densPost2 * dtheta)  # mean, by numeric integration
+mean(mcPost2)                     # mean, by MC
+thetas[which.max(densPost2)]      # MAP estimate
+```
+
+### Q2.20
+\alert{WHAT DO HERE?}
+
+Posterior Credibility Interval
+
+```{r}
+quantile(mcPost2, c(0.025, 0.975))
+```
+
+## 2.10 Example: occurrence of a nucelotide pattern in a genome
+
+```{r}
+library("Biostrings")
+library("BSgenome.Ecoli.NCBI.20080805")
+Ecoli
+shineDalgarno = "AGGAGGT"
+ecoli = Ecoli$NC_010473
+```
+## 2.13 EXercises
+
+### 2.1
+
+```{r}
+m<-rbinom(1000,1000,0.0001)
+gfm = goodfit(m, "binomial")
+rootogram(gfm, xlab = "", rect_gp = gpar(fill = "chartreuse"))
+```
+
+
+### 2.2
+
+```{r}
+max.unif<-function(n){
+  max(runif(n,0,7))
+}
+
+max.distr<-apply(as.matrix(seq(1:100)),1,max.unif)
+hist(max.distr)
+
+likelihoodunif<-function(theta,n=25){
+  theta^n
+}
+
+thetas<-seq(from = 0, to = 7, by=0.001)
+likelihood<-apply(as.matrix(thetas),1,likelihoodunif)
+max.likelihood<-thetas[which.max(likelihood)]
+max.likelihood
+```
+
+The likelihood function is:
+
+\[P(\theta|x_1,x_2,...,x_n)=P(X_1<\theta)P(X_2<\theta)\times...\times P(X_n<\theta)=\theta^n\]
+
+As this is an increasing function in $\theta$ on the range (0,7), it is maximized at 7. So $\hat{\theta}=7$.
+
+
+### 2.3
+
+```{r}
+mtb = read.table(here("Data","M_tuberculosis.txt"), header = TRUE)
+head(mtb, n = 4)
+
+pro  =  mtb[ mtb$AmAcid == "Pro", "Number"]
+pro/sum(pro)
+
+#a
+table(mtb$AmAcid)
+table(mtb$Codon)
+
+```
+
+(b) Percentage of total number multiplied by 1000
+
+(c)
+
+```{r}
+chisq<-function(x,p=rep(1/length(x))){
+  ((x-1000*p)/(1000*p))^2
+}
+stats<-apply(as.matrix(mtb$PerThous),1,chisq)
+maxstat<-as.character(mtb[which.max(stats),1])
+maxstat
+```
+
+### 2.4
+
+
+### 2.5
