@@ -420,14 +420,16 @@ HWTernaryPlot(genotypeFrequencies[pops, ],
 
 ### 2.7.3 
 
-Can't download seqLogo package
-<!--
-# ```{r}
-# library("seqLogo")
-# load(here("Class3","kozak.RData"))
-# kozak
-# ```
---->
+\alert{Can't get this to run seqLogo package}
+
+
+
+<!-- ```{r} -->
+<!-- library("seqLogo") -->
+<!-- load(here("Class3","kozak.RData")) -->
+<!-- kozak -->
+<!-- ``` -->
+
 
 ### 2.9.1
 
@@ -493,6 +495,71 @@ Ecoli
 shineDalgarno = "AGGAGGT"
 ecoli = Ecoli$NC_010473
 ```
+
+Count occurrences of AGGAGGT in windows of width 50000
+```{r}
+
+window = 50000
+starts = seq(1, length(ecoli) - window, by = window)
+ends   = starts + window - 1
+numMatches = vapply(seq_along(starts), function(i) {
+  countPattern(shineDalgarno, ecoli[starts[i]:ends[i]],
+               max.mismatch = 0)
+  }, numeric(1))
+table(numMatches)
+```
+
+Check to see if this follows a Poisson distribution
+
+```{r}
+library("vcd")
+gf = goodfit(numMatches, "poisson")
+summary(gf)
+distplot(numMatches, type = "poisson")
+
+#Inspect matches
+sdMatches = matchPattern(shineDalgarno, ecoli, max.mismatch = 0)
+sdMatches
+
+#Distance between matches
+betweenmotifs = gaps(sdMatches)
+betweenmotifs
+```
+
+If motifs appear at random, we expect the gaps between to be exponential.
+
+```{r}
+library("Renext")
+expplot(width(betweenmotifs), rate = 1/mean(width(betweenmotifs)),
+        labels = "fit")
+```
+
+### 2.10.1 Modeling in the case of dependencies
+
+```{r}
+library("BSgenome.Hsapiens.UCSC.hg19")
+chr8  =  Hsapiens$chr8
+CpGtab = read.table(here("Data","model-based-cpg-islands-hg19.txt"),
+                    header = TRUE)
+nrow(CpGtab)
+head(CpGtab)
+irCpG = with(dplyr::filter(CpGtab, chr == "chr8"),
+         IRanges(start = start, end = end))
+grCpG = GRanges(ranges = irCpG, seqnames = "chr8", strand = "+")
+genome(grCpG) = "hg19"
+```
+\alert{And this is where it all goes sideways because I can't get Gviz to work. I was able to download it off the BioConductor site but then it won't appear in the packages and it gives errors if I try to load it.}
+
+# ```{r}
+# library("Gviz")
+# ideo = IdeogramTrack(genome = "hg19", chromosome = "chr8")
+# plotTracks(
+#   list(GenomeAxisTrack(),
+#     AnnotationTrack(grCpG, name = "CpG"), ideo),
+#     from = 2200000, to = 5800000,
+#     shape = "box", fill = "#006400", stacking = "dense")
+# ```
+
 ## 2.13 EXercises
 
 ### 2.1
@@ -526,7 +593,7 @@ max.likelihood
 
 The likelihood function is:
 
-\[P(\theta|x_1,x_2,...,x_n)=P(X_1<\theta)P(X_2<\theta)\times...\times P(X_n<\theta)=\theta^n\]
+\[P(\theta|x_1,x_2,...,x_n)=P(X_1<\theta)P(X_2<\theta)\times...\times P(X_n<\theta)=\left(\dfrac{\theta}{7}\right)^n\]
 
 As this is an increasing function in $\theta$ on the range (0,7), it is maximized at 7. So $\hat{\theta}=7$.
 
@@ -561,5 +628,15 @@ maxstat
 
 ### 2.4
 
+```{r}
+staph = readDNAStringSet(here("Data","staphsequence.ffn.txt"), "fasta")
+staph[[1]]
+staph[[2]]
+staph[[3]]
+```
 
+(b)
+
+
+table(numMatches)
 ### 2.5
