@@ -622,7 +622,7 @@ chisq<-function(x,p=rep(1/length(x))){
   ((x-1000*p)/(1000*p))^2
 }
 stats<-apply(as.matrix(mtb$PerThous),1,chisq)
-maxstat<-as.character(mtb[which.max(stats),1])
+maxstat<-as.character(mtb[which.max(stats),2])
 maxstat
 ```
 
