@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017) (preloaded format=pdflatex 2017.5.23)  15 OCT 2019 18:00
+This is pdfTeX, Version 3.14159265-2.6-1.40.18 (TeX Live 2017) (preloaded format=pdflatex 2017.5.23)  23 OCT 2019 14:01
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1414,8 +1414,8 @@ Package xcolor Warning: Incompatible color definition on input line 242.
 Package xcolor Warning: Incompatible color definition on input line 242.
 
 
-<Class4Summary_files/figure-latex/unnamed-chunk-2-1.pdf, id=31, 459.7175pt x 31
-3.17pt>
+<Class4Summary_files/figure-latex/unnamed-chunk-2-1.pdf, id=119, 459.7175pt x 3
+13.17pt>
 File: Class4Summary_files/figure-latex/unnamed-chunk-2-1.pdf Graphic file (type
  pdf)
 <use Class4Summary_files/figure-latex/unnamed-chunk-2-1.pdf>
@@ -1435,8 +1435,8 @@ Package xcolor Warning: Incompatible color definition on input line 261.
 Package xcolor Warning: Incompatible color definition on input line 261.
 
 
-<Class4Summary_files/figure-latex/unnamed-chunk-3-1.pdf, id=48, 459.7175pt x 31
-3.17pt>
+<Class4Summary_files/figure-latex/unnamed-chunk-3-1.pdf, id=136, 459.7175pt x 3
+13.17pt>
 File: Class4Summary_files/figure-latex/unnamed-chunk-3-1.pdf Graphic file (type
  pdf)
 <use Class4Summary_files/figure-latex/unnamed-chunk-3-1.pdf>
@@ -1454,8 +1454,8 @@ Package xcolor Warning: Incompatible color definition on input line 278.
 Package xcolor Warning: Incompatible color definition on input line 278.
 
 
-<Class4Summary_files/figure-latex/unnamed-chunk-4-1.pdf, id=62, 459.7175pt x 31
-3.17pt>
+<Class4Summary_files/figure-latex/unnamed-chunk-4-1.pdf, id=150, 459.7175pt x 3
+13.17pt>
 File: Class4Summary_files/figure-latex/unnamed-chunk-4-1.pdf Graphic file (type
  pdf)
 <use Class4Summary_files/figure-latex/unnamed-chunk-4-1.pdf>
@@ -1478,8 +1478,8 @@ Package xcolor Warning: Incompatible color definition on input line 295.
 Package xcolor Warning: Incompatible color definition on input line 295.
 
 
-<Class4Summary_files/figure-latex/unnamed-chunk-5-1.pdf, id=75, 459.7175pt x 31
-3.17pt>
+<Class4Summary_files/figure-latex/unnamed-chunk-5-1.pdf, id=163, 459.7175pt x 3
+13.17pt>
 File: Class4Summary_files/figure-latex/unnamed-chunk-5-1.pdf Graphic file (type
  pdf)
 <use Class4Summary_files/figure-latex/unnamed-chunk-5-1.pdf>
@@ -1497,8 +1497,8 @@ Package xcolor Warning: Incompatible color definition on input line 312.
 Package xcolor Warning: Incompatible color definition on input line 312.
 
 
-<Class4Summary_files/figure-latex/unnamed-chunk-6-1.pdf, id=87, 459.7175pt x 31
-3.17pt>
+<Class4Summary_files/figure-latex/unnamed-chunk-6-1.pdf, id=175, 459.7175pt x 3
+13.17pt>
 File: Class4Summary_files/figure-latex/unnamed-chunk-6-1.pdf Graphic file (type
  pdf)
 <use Class4Summary_files/figure-latex/unnamed-chunk-6-1.pdf>
@@ -1516,7 +1516,7 @@ Package xcolor Warning: Incompatible color definition on input line 331.
 Package xcolor Warning: Incompatible color definition on input line 331.
 
 
-<Class4Summary_files/figure-latex/unnamed-chunk-7-1.pdf, id=100, 463.7325pt x 3
+<Class4Summary_files/figure-latex/unnamed-chunk-7-1.pdf, id=189, 463.7325pt x 3
 13.17pt>
 File: Class4Summary_files/figure-latex/unnamed-chunk-7-1.pdf Graphic file (type
  pdf)
@@ -1526,60 +1526,735 @@ Package pdftex.def Info: Class4Summary_files/figure-latex/unnamed-chunk-7-1.pdf
 (pdftex.def)             Requested size: 463.73842pt x 313.174pt.
 [6 <./Class4Summary_files/figure-latex/unnamed-chunk-6-1.pdf>]
 
-Package xcolor Warning: Incompatible color definition on input line 352.
+Package xcolor Warning: Incompatible color definition on input line 360.
 
 
-Package xcolor Warning: Incompatible color definition on input line 368.
+Package xcolor Warning: Incompatible color definition on input line 376.
 
 
-Package xcolor Warning: Incompatible color definition on input line 368.
+Package xcolor Warning: Incompatible color definition on input line 376.
+
+
+Package xcolor Warning: Incompatible color definition on input line 376.
 
 [7 <./Class4Summary_files/figure-latex/unnamed-chunk-7-1.pdf>]
 
-Package xcolor Warning: Incompatible color definition on input line 378.
+Package xcolor Warning: Incompatible color definition on input line 376.
 
 
-Package xcolor Warning: Incompatible color definition on input line 383.
+Package xcolor Warning: Incompatible color definition on input line 376.
 
 
-Package xcolor Warning: Incompatible color definition on input line 383.
+Package xcolor Warning: Incompatible color definition on input line 392.
+
+
+Package xcolor Warning: Incompatible color definition on input line 397.
+
+
+Package xcolor Warning: Incompatible color definition on input line 397.
+
+
+Package xcolor Warning: Incompatible color definition on input line 407.
+
+LaTeX Font Info:    Try loading font information for TS1+lmtt on input line 409
+.
+(/usr/local/texlive/2017/texmf-dist/tex/latex/lm/ts1lmtt.fd
+File: ts1lmtt.fd 2009/10/30 v1.6 Font defs for Latin Modern
+)
+
+Package xcolor Warning: Incompatible color definition on input line 420.
+
+
+Package xcolor Warning: Incompatible color definition on input line 420.
+
+
+Package xcolor Warning: Incompatible color definition on input line 436.
+
+
+Package xcolor Warning: Incompatible color definition on input line 441.
+
+
+Package xcolor Warning: Incompatible color definition on input line 441.
+
+
+Package xcolor Warning: Incompatible color definition on input line 451.
+
+
+Package xcolor Warning: Incompatible color definition on input line 457.
+
+
+Package xcolor Warning: Incompatible color definition on input line 457.
 
 [8]
-Package atveryend Info: Empty hook `BeforeClearDocument' on input line 392.
-Package atveryend Info: Empty hook `AfterLastShipout' on input line 392.
+LaTeX Font Info:    Font shape `T1/lmtt/bx/n' in size <14.4> not available
+(Font)              Font shape `T1/lmtt/b/n' tried instead on input line 486.
+
+Overfull \hbox (21.64383pt too wide) in paragraph at lines 486--486
+[][]\T1/lmtt/b/n/14.4 {r} # bincts = print(binTFBS) # ggplot(bincts, aes(x = ta
+gCount))
+ []
+
+
+Overfull \hbox (21.64383pt too wide) in paragraph at lines 495--495
+[][]\T1/lmtt/b/n/14.4 {r} # bincts = print(binTFBS) # ggplot(bincts, aes(x = ta
+gCount))
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 495--495
+\T1/lmtt/b/n/14.4 + scake_y_log10() + #   geom_histogram(binwidth = 1, fill =
+ []
+
+
+Package hyperref Warning: Difference (2) between bookmark levels is greater 
+(hyperref)                than one, level fixed on input line 499.
+
+
+Package xcolor Warning: Incompatible color definition on input line 503.
+
+
+Package xcolor Warning: Incompatible color definition on input line 516.
+
+
+Package xcolor Warning: Incompatible color definition on input line 516.
+
+
+<Class4Summary_files/figure-latex/unnamed-chunk-12-1.pdf, id=226, 460.72125pt x
+ 315.1775pt>
+File: Class4Summary_files/figure-latex/unnamed-chunk-12-1.pdf Graphic file (typ
+e pdf)
+<use Class4Summary_files/figure-latex/unnamed-chunk-12-1.pdf>
+Package pdftex.def Info: Class4Summary_files/figure-latex/unnamed-chunk-12-1.pd
+f used on input line 518.
+(pdftex.def)             Requested size: 460.72012pt x 315.17673pt.
+[9]
+
+Package xcolor Warning: Incompatible color definition on input line 522.
+
+
+Package xcolor Warning: Incompatible color definition on input line 535.
+
+
+Package xcolor Warning: Incompatible color definition on input line 535.
+
+
+<Class4Summary_files/figure-latex/unnamed-chunk-13-1.pdf, id=240, 462.72874pt x
+ 315.1775pt>
+File: Class4Summary_files/figure-latex/unnamed-chunk-13-1.pdf Graphic file (typ
+e pdf)
+<use Class4Summary_files/figure-latex/unnamed-chunk-13-1.pdf>
+Package pdftex.def Info: Class4Summary_files/figure-latex/unnamed-chunk-13-1.pd
+f used on input line 537.
+(pdftex.def)             Requested size: 462.73466pt x 315.18153pt.
+[10 <./Class4Summary_files/figure-latex/unnamed-chunk-12-1.pdf>]
+
+Package xcolor Warning: Incompatible color definition on input line 541.
+
+
+Package xcolor Warning: Incompatible color definition on input line 554.
+
+
+Package xcolor Warning: Incompatible color definition on input line 554.
+
+
+<Class4Summary_files/figure-latex/unnamed-chunk-14-1.pdf, id=252, 459.7175pt x 
+315.1775pt>
+File: Class4Summary_files/figure-latex/unnamed-chunk-14-1.pdf Graphic file (typ
+e pdf)
+<use Class4Summary_files/figure-latex/unnamed-chunk-14-1.pdf>
+Package pdftex.def Info: Class4Summary_files/figure-latex/unnamed-chunk-14-1.pd
+f used on input line 556.
+(pdftex.def)             Requested size: 459.74442pt x 315.19595pt.
+[11 <./Class4Summary_files/figure-latex/unnamed-chunk-13-1.pdf>]
+
+Package xcolor Warning: Incompatible color definition on input line 562.
+
+
+Package xcolor Warning: Incompatible color definition on input line 566.
+
+
+Package xcolor Warning: Incompatible color definition on input line 566.
+
+
+Package xcolor Warning: Incompatible color definition on input line 573.
+
+
+Package xcolor Warning: Incompatible color definition on input line 578.
+
+
+Package xcolor Warning: Incompatible color definition on input line 578.
+
+
+<Class4Summary_files/figure-latex/unnamed-chunk-15-1.pdf, id=264, 459.7175pt x 
+313.17pt>
+File: Class4Summary_files/figure-latex/unnamed-chunk-15-1.pdf Graphic file (typ
+e pdf)
+<use Class4Summary_files/figure-latex/unnamed-chunk-15-1.pdf>
+Package pdftex.def Info: Class4Summary_files/figure-latex/unnamed-chunk-15-1.pd
+f used on input line 580.
+(pdftex.def)             Requested size: 459.7304pt x 313.17877pt.
+[12 <./Class4Summary_files/figure-latex/unnamed-chunk-14-1.pdf>]
+
+Package xcolor Warning: Incompatible color definition on input line 585.
+
+
+Package xcolor Warning: Incompatible color definition on input line 602.
+
+
+Package xcolor Warning: Incompatible color definition on input line 602.
+
+
+<Class4Summary_files/figure-latex/unnamed-chunk-16-1.pdf, id=277, 459.7175pt x 
+313.17pt>
+File: Class4Summary_files/figure-latex/unnamed-chunk-16-1.pdf Graphic file (typ
+e pdf)
+<use Class4Summary_files/figure-latex/unnamed-chunk-16-1.pdf>
+Package pdftex.def Info: Class4Summary_files/figure-latex/unnamed-chunk-16-1.pd
+f used on input line 604.
+(pdftex.def)             Requested size: 459.7304pt x 313.17877pt.
+[13 <./Class4Summary_files/figure-latex/unnamed-chunk-15-1.pdf>]
+
+Package xcolor Warning: Incompatible color definition on input line 611.
+
+
+Package xcolor Warning: Incompatible color definition on input line 615.
+
+
+Package xcolor Warning: Incompatible color definition on input line 615.
+
+
+Package xcolor Warning: Incompatible color definition on input line 621.
+
+
+Package xcolor Warning: Incompatible color definition on input line 625.
+
+
+Package xcolor Warning: Incompatible color definition on input line 625.
+
+
+Package xcolor Warning: Incompatible color definition on input line 636.
+
+
+Package xcolor Warning: Incompatible color definition on input line 645.
+
+
+Package xcolor Warning: Incompatible color definition on input line 645.
+
+
+<Class4Summary_files/figure-latex/unnamed-chunk-18-1.pdf, id=290, 459.7175pt x 
+313.17pt>
+File: Class4Summary_files/figure-latex/unnamed-chunk-18-1.pdf Graphic file (typ
+e pdf)
+<use Class4Summary_files/figure-latex/unnamed-chunk-18-1.pdf>
+Package pdftex.def Info: Class4Summary_files/figure-latex/unnamed-chunk-18-1.pd
+f used on input line 647.
+(pdftex.def)             Requested size: 459.7304pt x 313.17877pt.
+[14 <./Class4Summary_files/figure-latex/unnamed-chunk-16-1.pdf>]
+
+Package xcolor Warning: Incompatible color definition on input line 656.
+
+
+Package xcolor Warning: Incompatible color definition on input line 667.
+
+
+Package xcolor Warning: Incompatible color definition on input line 667.
+
+
+<Class4Summary_files/figure-latex/unnamed-chunk-19-1.pdf, id=304, 459.7175pt x 
+315.1775pt>
+File: Class4Summary_files/figure-latex/unnamed-chunk-19-1.pdf Graphic file (typ
+e pdf)
+<use Class4Summary_files/figure-latex/unnamed-chunk-19-1.pdf>
+Package pdftex.def Info: Class4Summary_files/figure-latex/unnamed-chunk-19-1.pd
+f used on input line 669.
+(pdftex.def)             Requested size: 459.74442pt x 315.19595pt.
+[15 <./Class4Summary_files/figure-latex/unnamed-chunk-18-1.pdf>]
+
+Package xcolor Warning: Incompatible color definition on input line 683.
+
+
+Package xcolor Warning: Incompatible color definition on input line 691.
+
+
+Package xcolor Warning: Incompatible color definition on input line 691.
+
+
+<Class4Summary_files/figure-latex/unnamed-chunk-20-1.pdf, id=319, 459.7175pt x 
+315.1775pt>
+File: Class4Summary_files/figure-latex/unnamed-chunk-20-1.pdf Graphic file (typ
+e pdf)
+<use Class4Summary_files/figure-latex/unnamed-chunk-20-1.pdf>
+Package pdftex.def Info: Class4Summary_files/figure-latex/unnamed-chunk-20-1.pd
+f used on input line 693.
+(pdftex.def)             Requested size: 459.74442pt x 315.19595pt.
+[16 <./Class4Summary_files/figure-latex/unnamed-chunk-19-1.pdf>]
+
+Package xcolor Warning: Incompatible color definition on input line 706.
+
+
+Package xcolor Warning: Incompatible color definition on input line 711.
+
+
+Package xcolor Warning: Incompatible color definition on input line 711.
+
+
+<Class4Summary_files/figure-latex/unnamed-chunk-21-1.pdf, id=332, 459.7175pt x 
+313.17pt>
+File: Class4Summary_files/figure-latex/unnamed-chunk-21-1.pdf Graphic file (typ
+e pdf)
+<use Class4Summary_files/figure-latex/unnamed-chunk-21-1.pdf>
+Package pdftex.def Info: Class4Summary_files/figure-latex/unnamed-chunk-21-1.pd
+f used on input line 713.
+(pdftex.def)             Requested size: 459.7304pt x 313.17877pt.
+
+Package xcolor Warning: Incompatible color definition on input line 715.
+
+[17 <./Class4Summary_files/figure-latex/unnamed-chunk-20-1.pdf>]
+
+Package xcolor Warning: Incompatible color definition on input line 720.
+
+
+Package xcolor Warning: Incompatible color definition on input line 720.
+
+
+<Class4Summary_files/figure-latex/unnamed-chunk-21-2.pdf, id=345, 459.7175pt x 
+313.17pt>
+File: Class4Summary_files/figure-latex/unnamed-chunk-21-2.pdf Graphic file (typ
+e pdf)
+<use Class4Summary_files/figure-latex/unnamed-chunk-21-2.pdf>
+Package pdftex.def Info: Class4Summary_files/figure-latex/unnamed-chunk-21-2.pd
+f used on input line 722.
+(pdftex.def)             Requested size: 459.7304pt x 313.17877pt.
+[18 <./Class4Summary_files/figure-latex/unnamed-chunk-21-1.pdf>]
+
+Package xcolor Warning: Incompatible color definition on input line 726.
+
+
+Package xcolor Warning: Incompatible color definition on input line 735.
+
+
+Package xcolor Warning: Incompatible color definition on input line 735.
+
+
+<Class4Summary_files/figure-latex/unnamed-chunk-22-1.pdf, id=357, 459.7175pt x 
+313.17pt>
+File: Class4Summary_files/figure-latex/unnamed-chunk-22-1.pdf Graphic file (typ
+e pdf)
+<use Class4Summary_files/figure-latex/unnamed-chunk-22-1.pdf>
+Package pdftex.def Info: Class4Summary_files/figure-latex/unnamed-chunk-22-1.pd
+f used on input line 737.
+(pdftex.def)             Requested size: 459.7304pt x 313.17877pt.
+[19 <./Class4Summary_files/figure-latex/unnamed-chunk-21-2.pdf>]
+
+Package xcolor Warning: Incompatible color definition on input line 742.
+
+
+Package xcolor Warning: Incompatible color definition on input line 746.
+
+
+Package xcolor Warning: Incompatible color definition on input line 746.
+
+
+Package xcolor Warning: Incompatible color definition on input line 763.
+
+
+Package xcolor Warning: Incompatible color definition on input line 768.
+
+
+Package xcolor Warning: Incompatible color definition on input line 768.
+
+
+<Class4Summary_files/figure-latex/unnamed-chunk-23-1.pdf, id=370, 429.605pt x 2
+23.83624pt>
+File: Class4Summary_files/figure-latex/unnamed-chunk-23-1.pdf Graphic file (typ
+e pdf)
+<use Class4Summary_files/figure-latex/unnamed-chunk-23-1.pdf>
+Package pdftex.def Info: Class4Summary_files/figure-latex/unnamed-chunk-23-1.pd
+f used on input line 770.
+(pdftex.def)             Requested size: 429.61049pt x 223.8391pt.
+
+Package xcolor Warning: Incompatible color definition on input line 772.
+
+[20 <./Class4Summary_files/figure-latex/unnamed-chunk-22-1.pdf>]
+
+Package xcolor Warning: Incompatible color definition on input line 776.
+
+
+Package xcolor Warning: Incompatible color definition on input line 776.
+
+
+Package xcolor Warning: Incompatible color definition on input line 803.
+
+
+Package xcolor Warning: Incompatible color definition on input line 813.
+
+
+Package xcolor Warning: Incompatible color definition on input line 813.
+
+
+<Class4Summary_files/figure-latex/unnamed-chunk-24-1.pdf, id=383, 457.71pt x 31
+3.17pt>
+File: Class4Summary_files/figure-latex/unnamed-chunk-24-1.pdf Graphic file (typ
+e pdf)
+<use Class4Summary_files/figure-latex/unnamed-chunk-24-1.pdf>
+Package pdftex.def Info: Class4Summary_files/figure-latex/unnamed-chunk-24-1.pd
+f used on input line 815.
+(pdftex.def)             Requested size: 457.72285pt x 313.17877pt.
+
+Package xcolor Warning: Incompatible color definition on input line 817.
+
+[21 <./Class4Summary_files/figure-latex/unnamed-chunk-23-1.pdf>]
+
+Package xcolor Warning: Incompatible color definition on input line 822.
+
+
+Package xcolor Warning: Incompatible color definition on input line 822.
+
+
+<Class4Summary_files/figure-latex/unnamed-chunk-24-2.pdf, id=396, 459.7175pt x 
+313.17pt>
+File: Class4Summary_files/figure-latex/unnamed-chunk-24-2.pdf Graphic file (typ
+e pdf)
+<use Class4Summary_files/figure-latex/unnamed-chunk-24-2.pdf>
+Package pdftex.def Info: Class4Summary_files/figure-latex/unnamed-chunk-24-2.pd
+f used on input line 824.
+(pdftex.def)             Requested size: 459.7304pt x 313.17877pt.
+[22 <./Class4Summary_files/figure-latex/unnamed-chunk-24-1.pdf>]
+
+Package xcolor Warning: Incompatible color definition on input line 831.
+
+
+Package xcolor Warning: Incompatible color definition on input line 836.
+
+
+Package xcolor Warning: Incompatible color definition on input line 836.
+
+
+<Class4Summary_files/figure-latex/unnamed-chunk-25-1.pdf, id=412, 463.7325pt x 
+313.17pt>
+File: Class4Summary_files/figure-latex/unnamed-chunk-25-1.pdf Graphic file (typ
+e pdf)
+<use Class4Summary_files/figure-latex/unnamed-chunk-25-1.pdf>
+Package pdftex.def Info: Class4Summary_files/figure-latex/unnamed-chunk-25-1.pd
+f used on input line 838.
+(pdftex.def)             Requested size: 463.73842pt x 313.174pt.
+
+Package xcolor Warning: Incompatible color definition on input line 840.
+
+[23 <./Class4Summary_files/figure-latex/unnamed-chunk-24-2.pdf>]
+
+Package xcolor Warning: Incompatible color definition on input line 844.
+
+
+Package xcolor Warning: Incompatible color definition on input line 844.
+
+
+Package xcolor Warning: Incompatible color definition on input line 866.
+
+
+Package xcolor Warning: Incompatible color definition on input line 874.
+
+
+Package xcolor Warning: Incompatible color definition on input line 874.
+
+
+<Class4Summary_files/figure-latex/unnamed-chunk-26-1.pdf, id=428, 463.7325pt x 
+313.17pt>
+File: Class4Summary_files/figure-latex/unnamed-chunk-26-1.pdf Graphic file (typ
+e pdf)
+<use Class4Summary_files/figure-latex/unnamed-chunk-26-1.pdf>
+Package pdftex.def Info: Class4Summary_files/figure-latex/unnamed-chunk-26-1.pd
+f used on input line 876.
+(pdftex.def)             Requested size: 463.73842pt x 313.174pt.
+
+Package xcolor Warning: Incompatible color definition on input line 878.
+
+[24 <./Class4Summary_files/figure-latex/unnamed-chunk-25-1.pdf>]
+
+Package xcolor Warning: Incompatible color definition on input line 882.
+
+
+Package xcolor Warning: Incompatible color definition on input line 882.
+
+
+Package xcolor Warning: Incompatible color definition on input line 904.
+
+
+Package xcolor Warning: Incompatible color definition on input line 919.
+
+
+Package xcolor Warning: Incompatible color definition on input line 919.
+
+
+Package xcolor Warning: Incompatible color definition on input line 919.
+
+[25 <./Class4Summary_files/figure-latex/unnamed-chunk-26-1.pdf>]
+
+Package xcolor Warning: Incompatible color definition on input line 919.
+
+
+Package xcolor Warning: Incompatible color definition on input line 919.
+
+
+Package xcolor Warning: Incompatible color definition on input line 927.
+
+
+Package xcolor Warning: Incompatible color definition on input line 932.
+
+
+Package xcolor Warning: Incompatible color definition on input line 932.
+
+
+<Class4Summary_files/figure-latex/unnamed-chunk-27-1.pdf, id=463, 457.71pt x 31
+3.17pt>
+File: Class4Summary_files/figure-latex/unnamed-chunk-27-1.pdf Graphic file (typ
+e pdf)
+<use Class4Summary_files/figure-latex/unnamed-chunk-27-1.pdf>
+Package pdftex.def Info: Class4Summary_files/figure-latex/unnamed-chunk-27-1.pd
+f used on input line 934.
+(pdftex.def)             Requested size: 457.72285pt x 313.17877pt.
+
+Package xcolor Warning: Incompatible color definition on input line 940.
+
+
+Package xcolor Warning: Incompatible color definition on input line 948.
+
+
+Package xcolor Warning: Incompatible color definition on input line 948.
+
+
+<Class4Summary_files/figure-latex/unnamed-chunk-28-1.pdf, id=464, 459.7175pt x 
+300.12125pt>
+File: Class4Summary_files/figure-latex/unnamed-chunk-28-1.pdf Graphic file (typ
+e pdf)
+<use Class4Summary_files/figure-latex/unnamed-chunk-28-1.pdf>
+Package pdftex.def Info: Class4Summary_files/figure-latex/unnamed-chunk-28-1.pd
+f used on input line 950.
+(pdftex.def)             Requested size: 459.74442pt x 300.13882pt.
+[26 <./Class4Summary_files/figure-latex/unnamed-chunk-27-1.pdf>]
+
+Package xcolor Warning: Incompatible color definition on input line 960.
+
+
+Package xcolor Warning: Incompatible color definition on input line 965.
+
+
+Package xcolor Warning: Incompatible color definition on input line 965.
+
+
+<Class4Summary_files/figure-latex/unnamed-chunk-29-1.pdf, id=476, 459.7175pt x 
+315.1775pt>
+File: Class4Summary_files/figure-latex/unnamed-chunk-29-1.pdf Graphic file (typ
+e pdf)
+<use Class4Summary_files/figure-latex/unnamed-chunk-29-1.pdf>
+Package pdftex.def Info: Class4Summary_files/figure-latex/unnamed-chunk-29-1.pd
+f used on input line 967.
+(pdftex.def)             Requested size: 459.74442pt x 315.19595pt.
+
+Package xcolor Warning: Incompatible color definition on input line 969.
+
+[27 <./Class4Summary_files/figure-latex/unnamed-chunk-28-1.pdf>]
+
+Package xcolor Warning: Incompatible color definition on input line 973.
+
+
+Package xcolor Warning: Incompatible color definition on input line 973.
+
+
+Package xcolor Warning: Incompatible color definition on input line 982.
+
+
+Package xcolor Warning: Incompatible color definition on input line 987.
+
+
+Package xcolor Warning: Incompatible color definition on input line 987.
+
+
+Package xcolor Warning: Incompatible color definition on input line 991.
+
+
+Package xcolor Warning: Incompatible color definition on input line 1004.
+
+
+Package xcolor Warning: Incompatible color definition on input line 1004.
+
+
+Package xcolor Warning: Incompatible color definition on input line 1006.
+
+
+Package xcolor Warning: Incompatible color definition on input line 1048.
+
+
+Package xcolor Warning: Incompatible color definition on input line 1048.
+
+
+Package xcolor Warning: Incompatible color definition on input line 1048.
+
+[28 <./Class4Summary_files/figure-latex/unnamed-chunk-29-1.pdf>]
+
+Package xcolor Warning: Incompatible color definition on input line 1048.
+
+
+Package xcolor Warning: Incompatible color definition on input line 1048.
+
+
+Package xcolor Warning: Incompatible color definition on input line 1060.
+
+
+Package xcolor Warning: Incompatible color definition on input line 1064.
+
+
+Package xcolor Warning: Incompatible color definition on input line 1064.
+
+
+Package xcolor Warning: Incompatible color definition on input line 1070.
+
+
+Package xcolor Warning: Incompatible color definition on input line 1075.
+
+
+Package xcolor Warning: Incompatible color definition on input line 1075.
+
+
+Package xcolor Warning: Incompatible color definition on input line 1081.
+
+
+Package xcolor Warning: Incompatible color definition on input line 1086.
+
+
+Package xcolor Warning: Incompatible color definition on input line 1086.
+
+
+Package xcolor Warning: Incompatible color definition on input line 1092.
+
+
+Package xcolor Warning: Incompatible color definition on input line 1097.
+
+
+Package xcolor Warning: Incompatible color definition on input line 1097.
+
+[29]
+
+Package xcolor Warning: Incompatible color definition on input line 1106.
+
+
+Package xcolor Warning: Incompatible color definition on input line 1111.
+
+
+Package xcolor Warning: Incompatible color definition on input line 1111.
+
+
+<Class4Summary_files/figure-latex/unnamed-chunk-34-1.pdf, id=505, 440.64626pt x
+ 304.13625pt>
+File: Class4Summary_files/figure-latex/unnamed-chunk-34-1.pdf Graphic file (typ
+e pdf)
+<use Class4Summary_files/figure-latex/unnamed-chunk-34-1.pdf>
+Package pdftex.def Info: Class4Summary_files/figure-latex/unnamed-chunk-34-1.pd
+f used on input line 1113.
+(pdftex.def)             Requested size: 440.65862pt x 304.14478pt.
+
+Package xcolor Warning: Incompatible color definition on input line 1118.
+
+
+Package xcolor Warning: Incompatible color definition on input line 1122.
+
+
+Package xcolor Warning: Incompatible color definition on input line 1122.
+
+
+Package xcolor Warning: Incompatible color definition on input line 1128.
+
+
+Package xcolor Warning: Incompatible color definition on input line 1135.
+
+
+Package xcolor Warning: Incompatible color definition on input line 1135.
+
+
+<Class4Summary_files/figure-latex/unnamed-chunk-35-1.pdf, id=506, 457.71pt x 30
+0.12125pt>
+File: Class4Summary_files/figure-latex/unnamed-chunk-35-1.pdf Graphic file (typ
+e pdf)
+<use Class4Summary_files/figure-latex/unnamed-chunk-35-1.pdf>
+Package pdftex.def Info: Class4Summary_files/figure-latex/unnamed-chunk-35-1.pd
+f used on input line 1137.
+(pdftex.def)             Requested size: 457.72984pt x 300.13425pt.
+[30 <./Class4Summary_files/figure-latex/unnamed-chunk-34-1.pdf>]
+
+Package xcolor Warning: Incompatible color definition on input line 1140.
+
+
+Package xcolor Warning: Incompatible color definition on input line 1150.
+
+
+Package xcolor Warning: Incompatible color definition on input line 1150.
+
+
+Package xcolor Warning: Incompatible color definition on input line 1164.
+
+
+Package xcolor Warning: Incompatible color definition on input line 1169.
+
+
+Package xcolor Warning: Incompatible color definition on input line 1169.
+
+
+<Class4Summary_files/figure-latex/unnamed-chunk-37-1.pdf, id=520, 451.6875pt x 
+300.12125pt>
+File: Class4Summary_files/figure-latex/unnamed-chunk-37-1.pdf Graphic file (typ
+e pdf)
+<use Class4Summary_files/figure-latex/unnamed-chunk-37-1.pdf>
+Package pdftex.def Info: Class4Summary_files/figure-latex/unnamed-chunk-37-1.pd
+f used on input line 1171.
+(pdftex.def)             Requested size: 451.71394pt x 300.13882pt.
+
+Underfull \hbox (badness 10000) in paragraph at lines 1171--1173
+[][]
+ []
+
+[31 <./Class4Summary_files/figure-latex/unnamed-chunk-35-1.pdf>] [32 <./Class4S
+ummary_files/figure-latex/unnamed-chunk-37-1.pdf>]
+Package atveryend Info: Empty hook `BeforeClearDocument' on input line 1175.
+Package atveryend Info: Empty hook `AfterLastShipout' on input line 1175.
 (./Class4Summary.aux)
-Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 392.
-Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 392.
+Package atveryend Info: Executing hook `AtVeryEndDocument' on input line 1175.
+Package atveryend Info: Executing hook `AtEndAfterFileList' on input line 1175.
+
 Package rerunfilecheck Info: File `Class4Summary.out' has not changed.
-(rerunfilecheck)             Checksum: 1EC49A85590E7039FC3939BAA1DE2A0E;810.
-Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 392.
+(rerunfilecheck)             Checksum: 0F1E962506964E9A3176ACBDEF83DD98;5413.
+Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 1175.
  ) 
 Here is how much of TeX's memory you used:
- 24599 strings out of 492995
- 427207 string characters out of 6132704
- 522464 words of memory out of 5000000
- 27685 multiletter control sequences out of 15000+600000
- 44137 words of font info for 53 fonts, out of 8000000 for 9000
+ 24891 strings out of 492995
+ 436110 string characters out of 6132704
+ 527910 words of memory out of 5000000
+ 27896 multiletter control sequences out of 15000+600000
+ 45316 words of font info for 59 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 54i,7n,73p,952b,466s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 54i,7n,73p,952b,483s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/local/texlive/2017/texmf-dist/fonts/enc/dvips/lm/lm-mathsy.enc}{/usr/lo
-cal/texlive/2017/texmf-dist/fonts/enc/dvips/lm/lm-mathit.enc}{/usr/local/texliv
-e/2017/texmf-dist/fonts/enc/dvips/lm/lm-rm.enc}{/usr/local/texlive/2017/texmf-d
-ist/fonts/enc/dvips/lm/lm-ec.enc}</usr/local/texlive/2017/texmf-dist/fonts/type
-1/public/lm/lmbx10.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/l
-m/lmbx12.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/lm/lmmi10.p
-fb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/lm/lmmi7.pfb></usr/lo
-cal/texlive/2017/texmf-dist/fonts/type1/public/lm/lmr10.pfb></usr/local/texlive
-/2017/texmf-dist/fonts/type1/public/lm/lmr17.pfb></usr/local/texlive/2017/texmf
--dist/fonts/type1/public/lm/lmr7.pfb></usr/local/texlive/2017/texmf-dist/fonts/
-type1/public/lm/lmri12.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/publ
-ic/lm/lmsy10.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/lm/lmtk
-10.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/lm/lmtt10.pfb></u
-sr/local/texlive/2017/texmf-dist/fonts/type1/public/lm/lmtti10.pfb>
-Output written on Class4Summary.pdf (8 pages, 269423 bytes).
+cal/texlive/2017/texmf-dist/fonts/enc/dvips/lm/lm-mathex.enc}{/usr/local/texliv
+e/2017/texmf-dist/fonts/enc/dvips/lm/lm-ts1.enc}{/usr/local/texlive/2017/texmf-
+dist/fonts/enc/dvips/lm/lm-mathit.enc}{/usr/local/texlive/2017/texmf-dist/fonts
+/enc/dvips/lm/lm-rm.enc}{/usr/local/texlive/2017/texmf-dist/fonts/enc/dvips/lm/
+lm-ec.enc}</usr/local/texlive/2017/texmf-dist/fonts/type1/public/lm/lmbx10.pfb>
+</usr/local/texlive/2017/texmf-dist/fonts/type1/public/lm/lmbx12.pfb></usr/loca
+l/texlive/2017/texmf-dist/fonts/type1/public/lm/lmex10.pfb></usr/local/texlive/
+2017/texmf-dist/fonts/type1/public/lm/lmmi10.pfb></usr/local/texlive/2017/texmf
+-dist/fonts/type1/public/lm/lmmi7.pfb></usr/local/texlive/2017/texmf-dist/fonts
+/type1/public/lm/lmr10.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/publ
+ic/lm/lmr17.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/lm/lmr7.
+pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/lm/lmri12.pfb></usr/
+local/texlive/2017/texmf-dist/fonts/type1/public/lm/lmsy10.pfb></usr/local/texl
+ive/2017/texmf-dist/fonts/type1/public/lm/lmsy5.pfb></usr/local/texlive/2017/te
+xmf-dist/fonts/type1/public/lm/lmsy7.pfb></usr/local/texlive/2017/texmf-dist/fo
+nts/type1/public/lm/lmtk10.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/
+public/lm/lmtt10.pfb></usr/local/texlive/2017/texmf-dist/fonts/type1/public/lm/
+lmtti10.pfb>
+Output written on Class4Summary.pdf (32 pages, 1090748 bytes).
 PDF statistics:
- 184 PDF objects out of 1000 (max. 8388607)
- 142 compressed objects within 2 object streams
- 21 named destinations out of 1000 (max. 500000)
- 8283 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 624 PDF objects out of 1000 (max. 8388607)
+ 486 compressed objects within 5 object streams
+ 91 named destinations out of 1000 (max. 500000)
+ 8569 words of extra memory for PDF output out of 10000 (max. 10000000)
 
