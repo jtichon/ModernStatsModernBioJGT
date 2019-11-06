@@ -1,0 +1,439 @@
+---
+title: "Class-5-Summary"
+author: "Jenna G. Tichon"
+date: "15/10/2019"
+output:
+  pdf_document:
+    includes:
+      in_header: header.tex
+  html_document:
+    df_print: paged
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(here)
+library(ggplot2)
+library(dplyr)
+library(mosaicsExample)
+library(mosaics)
+library(HistData)
+library(bootstrap)
+library(ggbeeswarm)
+library(mixtools)
+```
+
+# 5 Clustering
+
+## 5.3 How do we measure similarity?
+
+  - **Euclidean**: 
+  \[d(A,B)=\sqrt{(a_1-b_1)^2+(a_2+b_2)^2+...+(a_p-b_p)^2}\]
+  
+  - **Manhattan ($L_1$)**
+  \[d(A,B)=\lvert a_1-b_1\rvert+\lvert a_2-b_2\rvert + ... + \lvert a_p-b_p\rvert\]
+  
+  - **Weighter Euclidean Distance**
+  
+  - **Minkowski**
+  \[d(A,B) = ((a_1-b_1)^m+(a_2-b_2)^m+...+(a_p-b_p)^m)^{\dfrac{1}{m}}\]
+  
+  - **BinARY Bit** For vectors of binary components, proportion of features with exactly one bit on against those with at least one on.
+  
+  - **Jacard Distance** $f_{11}$ number of time a feature co-occurs in $S$ and $T$ and $f_{10}/f_{01}$ the number of times it occurs in exactly one.
+  \[J(S,T)=\dfrac{f_{11}}{f_{01}+f_{10}+f_{11}}\]
+  \[d_J(S.T)=1-J(S,T)=\dfrac{f_{01}+f_{10}}{f_{01}+f_{10}+f_{11}}\]
+  
+  - **COrrelation Based Distance**
+  \[d(A,B)=\sqrt{2(1-cor(A,B))}\]
+  
+### 5.3.1 Computations RElated to Distances in R
+
+```{r}
+mx  = c(0, 0, 0, 1, 1, 1)
+my  = c(1, 0, 1, 1, 0, 1)
+mz  = c(1, 1, 1, 0, 1, 1)
+mat = rbind(mx, my, mz)
+dist(mat)
+```
+
+We can specify the distance method.
+
+```{r}
+dist(mat, method = "binary")
+```
+
+Showing that this agrees with euclidean distance
+
+```{r}
+load(here("data","Morder.RData"))
+sqrt(sum((Morder[1, ] - Morder[2, ])^2))
+as.matrix(dist(Morder))[2, 1]
+```
+
+Now let's compare HIV mutation data using the Jacard distance (using the \texttt{vegdist} function in the pacakge \texttt{vegan}) and the correlation based distance.
+
+```{r}
+mut = read.csv(here("data", "HIVmutations.csv"))
+mut[1:3, 10:16]
+
+#Jacard Distance
+library("vegan")
+mutJ = vegdist(mut, "jaccard")
+mutJ
+
+#Correlation based distance
+mutC = sqrt(2*(1-cor(t(mut))))
+as.dist(mutC)
+```
+
+## 5.4 Nonparametic Mixture Detection
+
+### 4.4.1 k-methods: m-means, k-medoids and PAM
+
+PAM (partitioning around medoids)
+
+  1. Matrix with $p$ features on $n$ observations
+  2. Randomly pick $k$ distinct *cluster centers* from the $n$ observations (these are our initial seeds)
+  3. Assign each other observation to closest center
+  4. Find the observation in each group that minimizes the sum of distances to that observation in the group. Called the *medoid*
+  5. Repeat 3 \& 4 until groups stabilize.
+  
+This is implemented in the \texttt{PAM} package.
+
+$k$-means makes the arithmetic mean the medoids which may or may not be an actual observation. This is in the bases \texttt{stats} package that come with R
+
+### 5.4.2 Tight clusters with resampling
+
+Tight clusters are points that are almost always grouped together. This is the example vignette from the package \texttt{clusterExperiment} using \texttt{clusterMany} as the clustering function and \texttt{pam} to run the individual clusters. 
+
+Change the choice of genes at 60, 100, 150 and the number of clusters $k$ for 4 to 9.
+
+```{r}
+library("clusterExperiment")
+data("fluidigm", package = "scRNAseq")
+se = fluidigm[, fluidigm$Coverage_Type == "High"]
+assays(se) = list(normalized_counts = 
+   round(limma::normalizeQuantiles(assay(se))))
+ce = clusterMany(se, clusterFunction = "pam", ks = 5:10, run = TRUE,
+  isCount = TRUE, reduceMethod = "var", nFilterDims = c(60, 100, 150))
+clusterLabels(ce) = sub("FilterDims", "", clusterLabels(ce))
+plotClusters(ce, whichClusters = "workflow", axisLine = -1)
+```
+
+## 5.5 Clustering Examples: flow cytometry and mass cytometry
+
+### 5.5.1 Flow cytometry and mass cytometry
+
+\biotip{"At different stages of their development, immune cells express unique combinations of proteins on their surfaces. These protein-markers are called CDs (clusters of differentiation) collected using flow or mass cytometry}
+
+Some CD4 is protein expressed by helper t-cells (Called CD4+) but some cells express this without being helper t cells
+
+\alert{I've given up on installing flowViz but got flowCore installed. }
+```{r}
+library("flowCore")
+library("flowViz")
+fcsB = read.FCS("../data/Bendall_2011.fcs")
+slotNames(fcsB)
+```
+
+### 5.5.2 Data processing
+
+```{r}
+fcsB = read.FCS(here("data", "Bendall_2011.fcs"))
+library("flowCore")
+markersB = readr::read_csv(here("data","Bendall_2011_markers.csv"))
+#Replace columns names with marker names
+mt = match(markersB$isotope, colnames(fcsB))
+stopifnot(!any(is.na(mt)))
+colnames(fcsB)[mt] = markersB$marker
+flowPlot(fcsB, plotParameters = colnames(fcsB)[2:3], logy = TRUE)
+```
+
+arcsin is a common transformation for flow and mass cytometry.
+
+```{r}
+
+v1 = seq(0, 1, length.out = 100)
+plot(log(v1), asinh(v1), type = 'l')
+plot(v1, asinh(v1), type = 'l')
+v3 = seq(30, 3000, length = 100)
+plot(log(v3), asinh(v3), type= 'l')
+
+
+#apply arcsinh transformation
+asinhtrsf = arcsinhTransform(a = 0.1, b = 1)
+fcsBT = transform(fcsB,
+transformList(colnames(fcsB)[-c(1, 2, 41)], asinhtrsf))
+densityplot( ~`CD3all`, fcsB)
+densityplot( ~`CD3all`, fcsBT)
+```
+
+\alert{Screw this package}
+
+```{r}
+kf = kmeansFilter("CD3all" = c("Pop1","Pop2"), filterId="myKmFilter")
+fres = flowCore::filter(fcsBT, kf)
+summary(fres)
+```
+
+### 5.5.3 Density-based clustering
+
+Few markers and large number of cells is suited for density based clustering. Find high density separated by sparser regions.
+
+```{r}
+library("dbscan")
+fcsB = read.FCS(here("data","Bendall_2011.fcs"))
+markersB = readr::read_csv(here("data","Bendall_2011_markers.csv"))
+#Replace columns names with marker names
+mt = match(markersB$isotope, colnames(fcsB))
+stopifnot(!any(is.na(mt)))
+colnames(fcsB)[mt] = markersB$marker
+mc5 = Biobase::exprs(fcsBT)[, c(15,16,19,40,33)]
+res5 = dbscan::dbscan(mc5, eps = 0.65, minPts = 30)
+mc5df = data.frame(mc5, cluster = as.factor(res5$cluster))
+table(mc5df$cluster)
+
+#Visualized grouped by cluster
+ggplot(mc5df, aes(x=CD4,    y=CD8,  col=cluster))+geom_density2d()
+ggplot(mc5df, aes(x=CD3all, y=CD20, col=cluster))+geom_density2d()
+```
+
+## 5.6 Hierarchical clustering
+
+### 5.6.1 How to compute (dis)similarities between aggregated clusters?
+
+We can compute this by: minimal jump, maximal jump, average linkage, ward's method using ANOVA approach.
+
+### Q5.8
+
+```{r}
+library(pheatmap)
+load(here("data", "Morder.RData"))
+pheatmap(Morder, clustering_distance_cols = "euclidean", clustering_distance_rows = "euclidean")
+pheatmap(Morder, clustering_distance_cols = "manhattan", clustering_distance_rows = "manhattan")
+```
+
+
+## 5.7 Validating and finding members of clusters
+
+```{r}
+library("dplyr")
+
+#Simulate 100 each data from groups where the mu_X and mu_Y Combos are: (0,0), (0,8), (8,0), (8,8)
+simdat = lapply(c(0, 8), function(mx) {
+  lapply(c(0,8), function(my) {
+    tibble(x = rnorm(100, mean = mx, sd = 2),
+           y = rnorm(100, mean = my, sd = 2),
+           #column that says which group data is from
+           class = paste(mx, my, sep = ":"))
+   }) %>% bind_rows
+}) %>% bind_rows
+simdat
+
+#Remoce column with (0,0), (0,8), (8,0), (8,8) label
+simdatxy = simdat[, c("x", "y")]
+
+#Create a scatterplot colored by class
+ggplot(simdat, aes(x = x, y = y, col = class)) + geom_point() +
+  coord_fixed()
+
+#Create a tiblle with number of groups 1:8, and blank for wss (Within group sum of square value)
+wss = tibble(k = 1:8, value = NA_real_)
+#set for 1 group, the value of just the data set lumped together
+wss$value[1] = sum(scale(simdatxy, scale = FALSE)^2)
+#calculate it for 2:8
+for (i in 2:nrow(wss)) {
+  #use kmeans of simdatxy with the number of centers equal to k
+  km  = kmeans(simdatxy, centers = wss$k[i])
+  #replace wss value in tibble with withinss parameter from kmeans object
+  wss$value[i] = sum(km$withinss)
+}
+#Make a boxchart of wss, see where it makes an elbow: AT 4!
+ggplot(wss, aes(x = k, y = value)) + geom_col()
+```
+
+### Q5.12
+
+Redo with uniform
+
+```{r}
+library("dplyr")
+
+#Simulate 100 each data from groups where the mu_X and mu_Y Combos are: (0,0), (0,8), (8,0), (8,8)
+simdat2 = lapply(c(0, 8), function(mx) {
+  lapply(c(0,8), function(my) {
+    tibble(x = runif(100, min = mx-4, max = mx+4),
+           y = runif(100, min = my-4, max = my+4),
+           #column that says which group data is from
+           class = paste(mx, my, sep = ":"))
+   }) %>% bind_rows
+}) %>% bind_rows
+simdat2
+
+#Remoce column with (0,0), (0,8), (8,0), (8,8) label
+simdat2xy = simdat2[, c("x", "y")]
+
+#Create a scatterplot colored by class
+ggplot(simdat2, aes(x = x, y = y, col = class)) + geom_point() +
+  coord_fixed()
+
+#Create a tiblle with number of groups 1:8, and blank for wss (Within group sum of square value)
+wss = tibble(k = 1:8, value = NA_real_)
+#set for 1 group, the value of just the data set lumped together
+wss$value[1] = sum(scale(simdat2xy, scale = FALSE)^2)
+#calculate it for 2:8
+for (i in 2:nrow(wss)) {
+  #use kmeans of simdatxy with the number of centers equal to k
+  km  = kmeans(simdat2xy, centers = wss$k[i])
+  #replace wss value in tibble with withinss parameter from kmeans object
+  wss$value[i] = sum(km$withinss)
+}
+#Make a boxchart of wss, see where it makes an elbow: AT 4!
+ggplot(wss, aes(x = k, y = value)) + geom_col()
+```
+
+### 5.7.1 Using the gap statistic
+
+We can compare $\log(WSS_k)$ for various $k$ values and compare to that obtained for data with similar dimensions that is uniform and non-clustered. 
+
+This gap statistic is:
+\[gap(k)=\dfrac{1}{B}\sum^B_{b=1}\log W^*_{kb}-\log WSS_k\]
+
+This will be positive if the clustering is good because clustering should minimize the WSS (the within sum of squares). SO we want the highest gap value. 
+
+### 5.14
+# ```{r}
+# library("Hiiragi2013")
+# data("x")
+# 
+# #Find more variable genes?
+# selFeats = order(rowVars(Biobase::exprs(x)), decreasing = TRUE)[1:50]
+# embmat = t(Biobase::exprs(x)[selFeats, ])
+# embgap = clusGap(embmat, FUN = pamfun, K.max = 24, verbose = FALSE)
+# #what k is not larger than first local maxima minus sampling error
+# k1 = maxSE(embgap$Tab[, "gap"], embgap$Tab[, "SE.sim"])
+# #what k under tibshirani, walther, hastie
+# k2 = maxSE(embgap$Tab[, "gap"], embgap$Tab[, "SE.sim"],
+#            method = "Tibs2001SEmax")
+# c(k1, k2)
+# 
+# #Plot gap statistic
+# plot(embgap, main = "")
+# cl = pamfun(embmat, k = k1)$cluster
+# table(pData(x)[names(cl), "sampleGroup"], cl)
+# ```
+
+## 5.11 Exercises
+
+### 5.1a
+
+```{r}
+library("cluster")
+pam4 = pam(simdatxy, 4)
+sil = silhouette(pam4, 4)
+plot(sil, col=c("red", "green", "blue", "purple"), main="Silhouette")
+```
+
+### 5.1.b
+Four has the highest sil values
+```{r}
+for(k in 2:8){
+sil = silhouette(pam(simdatxy,k), k)
+plot(sil, col=c("red", "green", "blue", "purple"), main="Silhouette")
+}
+```
+
+### 5.1.c
+Repeat with uniform for comparison
+```{r}
+for(k in 2:8){
+sil = silhouette(pam(simdat2xy,k), k)
+plot(sil, col=c("red", "green", "blue", "purple"), main="Silhouette")
+}
+```
+
+### 5.2
+
+(a) \& (b)
+```{r}
+library(vegan)
+data(dune)
+symnum(cor(dune))
+pheatmap(dune)
+```
+
+### 5.3 
+
+```{r}
+library(kernlab)
+data(spirals)
+km2 = kmeans(spirals, centers = 2)$cluster
+ggplot(data = as.data.frame(spirals), aes(x=spirals[,1], y=spirals[,2], col=km2)) +
+  geom_point()
+```
+
+```{r}
+km3 = kmeans(spirals, centers = 3)$cluster
+ggplot(data = as.data.frame(spirals), aes(x=spirals[,1], y=spirals[,2], col=km3)) +
+  geom_point()
+```
+
+```{r}
+#eps 0.15 minPts=2 to recreate text example
+dbs<-dbscan(spirals, eps=0.15, minPts=2)
+spiralsdbs = data.frame(spirals, cluster = as.factor(dbs$cluster))
+table(dbs$cluster)
+ggplot(as.data.frame(spirals), aes(x=spirals[,1], y=spirals[,2], col=spiralsdbs$cluster)) +
+  geom_point()
+```
+```{r}
+#eps 0.1 minPts=2
+dbs<-dbscan(spirals, eps=0.1, minPts=2)
+spiralsdbs = data.frame(spirals, cluster = as.factor(dbs$cluster))
+table(dbs$cluster)
+ggplot(as.data.frame(spirals), aes(x=spirals[,1], y=spirals[,2], col=spiralsdbs$cluster)) +
+  geom_point()
+```
+```{r}
+#eps 0.01 minPts=2 to recreate text example
+dbs<-dbscan(spirals, eps=0.01, minPts=2)
+spiralsdbs = data.frame(spirals, cluster = as.factor(dbs$cluster))
+table(dbs$cluster)
+ggplot(as.data.frame(spirals), aes(x=spirals[,1], y=spirals[,2], col=spiralsdbs$cluster)) +
+  geom_point()
+```
+\alert{Number of groups inflates quickly. There is a definite sweet spot between all different groups and all in the same group. What is this?}
+
+### Q5.4
+
+Water lines and population density?
+
+### Q 5.5
+
+```{r}
+library(dada2)
+base_dir = here("data")
+miseq_path = file.path(base_dir, "MiSeq_SOP")
+filt_path = file.path(miseq_path, "filtered")
+fnFs = sort(list.files(miseq_path, pattern="_R1_001.fastq"))
+fnRs = sort(list.files(miseq_path, pattern="_R2_001.fastq"))
+sampleNames = sapply(strsplit(fnFs, "_"), `[`, 1)
+if (!file_test("-d", filt_path)) dir.create(filt_path)
+filtFs = file.path(filt_path, paste0(sampleNames, "_F_filt.fastq.gz"))
+filtRs = file.path(filt_path, paste0(sampleNames, "_R_filt.fastq.gz"))
+fnFs = file.path(miseq_path, fnFs)
+fnRs = file.path(miseq_path, fnRs)
+print(length(fnFs))
+
+plotQualityProfile(fnFs[1:2]) + ggtitle("Forward")
+plotQualityProfile(fnRs[1:2]) + ggtitle("Reverse")
+```
+
+### Q 5.6
+\alert{What am I randomizing?}
+
+### Q 5.7
+\alert{Also declaring this a que?}
+
+### Q. 5.8
